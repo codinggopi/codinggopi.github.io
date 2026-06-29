@@ -46,6 +46,22 @@
       pointer-events: none; z-index: 9999; opacity: 0.35;
     }
 
+    /* AMBIENT BACKGROUND */
+    .ambient-grid {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background-image: linear-gradient(rgba(0,229,160,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,160,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 20s linear infinite;
+    }
+    .ambient-blob {
+      position: fixed; border-radius: 50%; pointer-events: none; z-index: -1; filter: blur(120px); opacity: 0.08;
+    }
+    .blob-1 { width: 500px; height: 500px; background: var(--accent); top: -150px; left: -150px; }
+    .blob-2 { width: 400px; height: 400px; background: var(--accent-2); bottom: -120px; right: -120px; }
+    @keyframes gridMove { 0% { background-position: 0 0; } 100% { background-position: 60px 60px; } }
+    @keyframes blink { 50% { opacity: 0; } }
+    .cursor { animation: blink 0.7s step-end infinite; color: var(--accent); }
+
     /* NAV */
     nav {
       position: sticky; top: 0; z-index: 100;
@@ -218,7 +234,11 @@
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     .skill-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; font-family: 'Syne', sans-serif; }
-    .skill-list { font-size: 0.85rem; color: var(--text-sub); line-height: 1.6; }
+    .skill-list { font-size: 0.85rem; color: var(--text-sub); line-height: 1.6; margin-bottom: 0.8rem; }
+    .skill-bar-wrap { margin-top: 0.5rem; }
+    .skill-bar-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-sub); margin-bottom: 0.25rem; }
+    .skill-bar-bg { height: 4px; background: rgba(255,255,255,0.07); border-radius: 99px; overflow: hidden; }
+    .skill-bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); width: 0%; transition: width 1.4s cubic-bezier(.4,0,.2,1); }
 
     /* EXPERIENCE */
     .timeline { display: flex; flex-direction: column; gap: 1.25rem; }
@@ -296,10 +316,42 @@
     .cert-sub { font-size: 0.8rem; color: var(--text-sub); }
 
     /* CONTACT */
-    .contact-inner { max-width: 580px; margin: 0 auto; text-align: center; }
+    .contact-inner { max-width: 640px; margin: 0 auto; text-align: center; }
     .contact-inner h2 { font-size: 2.5rem; letter-spacing: -1.5px; margin-bottom: 1rem; font-weight: 800; }
     .contact-inner p { color: var(--text-sub); margin-bottom: 2rem; }
-    .contact-icons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+    
+    .availability-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 20px; background: rgba(0,229,160,0.08); border: 1px solid rgba(0,229,160,0.25);
+      border-radius: 50px; font-size: 0.85rem; font-weight: 600; color: var(--accent); margin-bottom: 1.5rem;
+    }
+    .status-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); animation: pulse 2s infinite; }
+    
+    .contact-buttons { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+    .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--accent-2); color: var(--accent-2); transform: translateY(-3px); }
+    
+    .github-box {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 12px 24px; background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 12px; font-size: 0.95rem; margin-bottom: 2.5rem; color: var(--text);
+    }
+    .github-box i { font-size: 1.5rem; color: var(--text); }
+    .github-box strong { color: var(--accent); font-weight: 800; font-size: 1.1rem; }
+    
+    .contact-form {
+      display: flex; flex-direction: column; gap: 1rem;
+      max-width: 500px; margin: 0 auto 2.5rem auto; text-align: left;
+    }
+    .contact-form input, .contact-form textarea {
+      width: 100%; padding: 14px 18px; border-radius: 10px;
+      background: var(--surface); border: 1px solid var(--border); color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem; transition: border-color 0.3s;
+    }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); outline: none; }
+    .contact-form button { width: 100%; justify-content: center; }
+
+    .contact-icons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
     .contact-icon {
       width: 52px; height: 52px;
       background: var(--surface); border: 1px solid var(--border);
@@ -311,6 +363,13 @@
       color: #08090f; transform: translateY(-4px);
       box-shadow: 0 8px 20px var(--glow);
     }
+
+    .github-stats-container { display: flex; justify-content: center; gap: 1.25rem; flex-wrap: wrap; }
+    .github-stats-container img {
+      max-width: 100%; height: auto; border-radius: 10px;
+      border: 1px solid var(--border); transition: transform 0.3s;
+    }
+    .github-stats-container img:hover { transform: translateY(-5px); border-color: var(--accent-2); }
 
     /* FOOTER */
     footer {
@@ -334,6 +393,11 @@
 </head>
 <body>
 
+<!-- AMBIENT BACKGROUND -->
+<div class="ambient-grid"></div>
+<div class="ambient-blob blob-1"></div>
+<div class="ambient-blob blob-2"></div>
+
 <!-- NAV -->
 <nav>
   <div class="container nav-content">
@@ -343,6 +407,7 @@
       <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
       <li><a href="#certifications">Certs</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -357,12 +422,11 @@
   <div class="hero-text">
     <span class="hero-tag">Open to Internships &amp; Freelance</span>
     <h1>
-      Full Stack &<br>
-      <span class="line-accent">UI/UX</span><br>
-      Developer
+      Gopinath G <br>
+      <span class="line-accent" style="font-size: 0.65em;" id="typed-text"></span><span class="cursor" style="font-size: 0.65em;">|</span>
     </h1>
     <p class="hero-sub">
-      Hi, I'm <strong>Gopinath G</strong> — a 2nd-year CSE student at Mailam Engineering College building full stack web apps, mobile apps, and clean user experiences. React, Django, Flutter &amp; beyond.
+      Hi, I'm <strong>GOPINATH G</strong> — a 3rd-year CSE student at Mailam Engineering College, building full stack web apps, mobile apps, and clean user experiences. React, Django, Flutter &amp; beyond.
     </p>
     <div class="cta-group">
       <a href="#projects" class="btn btn-primary">
@@ -381,7 +445,7 @@
   </div>
   <div class="hero-img">
     <div class="hero-img-wrap">
-      <img src="1775895623022.png" alt="Gopinath G">
+      <img src="assets/Gopinath.jpeg" alt="Gopinath G">
     </div>
   </div>
 </header>
@@ -398,36 +462,46 @@
       <div class="skill-card">
         <i class="fas fa-paint-brush skill-icon"></i>
         <h3>Frontend</h3>
-        <p class="skill-list">HTML5, CSS3, JavaScript ES6+, React.js, Tailwind CSS</p>
+        <p class="skill-list">HTML5, CSS3, JavaScript, React.js, Tailwind CSS</p>
+        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>React.js</span><span>85%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85%"></div></div></div>
+        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>HTML/CSS</span><span>90%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90%"></div></div></div>
       </div>
       <div class="skill-card">
         <i class="fas fa-mobile-alt skill-icon"></i>
         <h3>Mobile Dev</h3>
         <p class="skill-list">Flutter, React Native, Firebase</p>
+        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Flutter</span><span>78%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="78%"></div></div></div>
+        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Firebase</span><span>72%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="72%"></div></div></div>
       </div>
       <div class="skill-card">
         <i class="fas fa-server skill-icon"></i>
         <h3>Backend</h3>
-        <p class="skill-list">Node.js, Python Django, REST APIs, Java</p>
+        <p class="skill-list">Node.js, Python Django, FastAPI</p>
+        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>FastAPI</span><span>82%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="82%"></div></div></div>
+        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Node.js</span><span>70%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="70%"></div></div></div>
       </div>
       <div class="skill-card">
         <i class="fas fa-database skill-icon"></i>
         <h3>Database</h3>
-        <p class="skill-list">MySQL, MongoDB, Firebase Firestore</p>
+        <p class="skill-list">MySQL, PostgreSQL, Sqlite</p>
+        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>PostgreSQL</span><span>75%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="75%"></div></div></div>
+        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>MySQL</span><span>75%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="84%"></div></div></div>
       </div>
       <div class="skill-card">
         <i class="fas fa-tools skill-icon"></i>
         <h3>Dev Tools</h3>
-        <p class="skill-list">Git, GitHub, VS Code, Figma, Postman</p>
+        <p class="skill-list">Git, GitHub Actions, Vercel, VS Code</p>
+        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Git/GitHub</span><span>88%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="88%"></div></div></div>
       </div>
       <div class="skill-card">
         <i class="fas fa-pencil-ruler skill-icon"></i>
         <h3>UI/UX</h3>
-        <p class="skill-list">Figma, Responsive Design, Component-based UI</p>
+        <p class="skill-list">Figma, Responsive Design</p>
+        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Responsive UI</span><span>90%</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90%"></div></div></div>
       </div>
     </div>
   </div>
-</section>
+</section><br>
 
 <!-- EXPERIENCE -->
 <section id="experience" class="container">
@@ -438,9 +512,17 @@
   </div>
   <div class="timeline">
     <div class="timeline-item">
+    <span class="exp-date">2026</span>
+    <h3 class="exp-role">Web Development Intern</h3>
+    <span class="exp-company">CodSoft — Remote, IT Services and IT Consulting kolkata, west bengal, India</span>
+    <p class="exp-desc">
+        Selected for the CodSoft Web Development Internship program. Worked on practical web development projects involving frontend and full-stack technologies. Developed responsive applications, implemented modern UI designs, and gained hands-on experience in website development and deployment. Successfully completed all assigned tasks and received an Internship Completion Certificate.
+    </p>
+</div>
+    <div class="timeline-item">
       <span class="exp-date">2025</span>
       <h3 class="exp-role">Java Full-Stack Developer Intern</h3>
-      <span class="exp-company">OneYes Infotech Solutions Pvt. Ltd. — Chennai, TN · Via Thozhil Platform</span>
+      <span class="exp-company">OneYes Infotech Solutions Pvt. Ltd. — Chennai, TN • Via Thozhil Platform</span>
       <p class="exp-desc">Selected through the Thozhil placement platform for a Java Full-Stack Development internship. Worked on full-stack Java projects involving frontend and backend development. Received <strong>Certificate of Excellence</strong> from Thozhil for outstanding performance.</p>
     </div>
     <div class="timeline-item">
@@ -456,7 +538,7 @@
       <p class="exp-desc">Developed responsive web pages using HTML, CSS, and JavaScript. Learned website architecture and modern frontend best practices.</p>
     </div>
   </div>
-</section>
+</section><br>
 
 <!-- PROJECTS -->
 <section id="projects">
@@ -467,6 +549,52 @@
       <p>Real-world apps across web, mobile, and backend.</p>
     </div>
     <div class="project-grid">
+
+      <div class="project-card">
+        <div class="project-banner" style="background: linear-gradient(135deg, #0a0f1a 0%, #1a0d2b 100%);">
+          <div class="proj-icon">🚀</div>
+          <h3 style="color: #a78bfa;">CareerConnect</h3>
+          <small>JOB FINDER PLATFORM - Intern project</small>
+        </div>
+        <div class="project-content">
+          <h3>CareerConnect</h3>
+          <p>Developed a job finder platform using Html, Css, Javascript, FastAPI, PostgreSQL. Features AI resume analysis, skill gap identification, and mock interviews.</p>
+          <div class="tech-stack">
+            <span class="tech-tag">Html5</span>
+            <span class="tech-tag">Css</span>
+            <span class="tech-tag">Javascript</span>
+            <span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">PostgreSQL</span>
+            <span class="tech-tag">Jwt Authentication</span>
+            
+          </div>
+          <a href="https://careerconnect-online.netlify.app/" target="_blank" class="proj-link">
+            View Project <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-banner" style="background: linear-gradient(135deg, #1a150a 0%, #2b220d 100%);">
+          <div class="proj-icon">🎯</div>
+          <h3 style="color: #facc15;">QuizSphere</h3>
+          <small>#1 Quiz Platform - Intern project</small>
+        </div>
+        <div class="project-content">
+          <h3>QuizSphere</h3>
+          <p>Developed an online quiz platform using Html, Css, Javascript, PostgreSQL, JWT Authentication with performance analytics and leaderboards.</p>
+          <div class="tech-stack">
+            <span class="tech-tag">Html5</span>
+            <span class="tech-tag">Css3</span>
+            <span class="tech-tag">Javascript</span>
+            <span class="tech-tag">PostgreSQL</span>
+            <span class="tech-tag">FastAPI</span>
+          </div>
+          <a href="https://quizsphereonline.netlify.app/" target="_blank" class="proj-link">
+            View Project <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
 
       <div class="project-card">
         <div class="project-banner" style="background: linear-gradient(135deg, #0a1a0f 0%, #0d2b1a 100%);">
@@ -514,15 +642,16 @@
         <div class="project-banner" style="background: linear-gradient(135deg, #1a0f0a 0%, #2e1b0d 100%);">
           <div class="proj-icon">📱</div>
           <h3 style="color: #f97316;">Alumni Network</h3>
-          <small>IN PROGRESS · MOBILE APP</small>
+          <small>FULL-STACK WEB & MOBILE APP</small>
         </div>
         <div class="project-content">
-          <h3>Alumni Connect – Networking App</h3>
-          <p>Mobile app for college alumni networking with OTP authentication, mentorship requests, role-based access for Admin, Alumni &amp; Student roles.</p>
+          <h3>Alumni Network Platform</h3>
+          <p>Designed and developed an Alumni Management platform integrating alumni-student networking, mentorship programs, messaging, and event management.</p>
           <div class="tech-stack">
+            <span class="tech-tag">Next.js</span>
             <span class="tech-tag">Flutter</span>
-            <span class="tech-tag">Django</span>
-            <span class="tech-tag">MySQL</span>
+            <span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">PostgreSQL</span>
             <span class="tech-tag">Firebase</span>
           </div>
           <a href="https://github.com/codinggopi/AlumniApp" target="_blank" class="proj-link">
@@ -533,7 +662,51 @@
 
     </div>
   </div>
-</section>
+</section><br>
+
+<!-- EDUCATION -->
+<section id="education" class="container">
+  <div class="section-header">
+    <div class="section-label">Academics</div>
+    <h2>Education</h2>
+    <p>My academic background and qualifications.</p>
+  </div>
+  <div class="cert-grid">
+    <div class="cert-card edu-card" style="flex-direction: column;">
+      <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🎓</div>
+      <div style="width: 100%;">
+        <div class="cert-title">B.E. Computer Science & Engineering</div>
+        <div class="cert-sub" style="color:var(--accent); margin-bottom: 0.8rem;">Mailam Engineering College, Anna University</div>
+        <div style="display:flex; justify-content:space-between; border-top: 1px solid var(--border); padding-top: 0.8rem; font-size: 0.85rem;">
+          <strong style="color:var(--accent-2);">CGPA: 8.5 / 10</strong>
+          <span style="color:var(--text-sub);">2024 – 2028</span>
+        </div>
+      </div>
+    </div>
+    <div class="cert-card edu-card" style="flex-direction: column;">
+      <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">📚</div>
+      <div style="width: 100%;">
+        <div class="cert-title">HSC (Class XII) — TN State Board</div>
+        <div class="cert-sub" style="color:var(--accent); margin-bottom: 0.8rem;">Indira Gandhi Govt. HSS, Indira Nagar, Puducherry</div>
+        <div style="display:flex; justify-content:space-between; border-top: 1px solid var(--border); padding-top: 0.8rem; font-size: 0.85rem;">
+          <strong style="color:var(--accent-2);">77%</strong>
+          <span style="color:var(--text-sub);">2023 – 2024</span>
+        </div>
+      </div>
+    </div>
+    <div class="cert-card edu-card" style="flex-direction: column;">
+      <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">📖</div>
+      <div style="width: 100%;">
+        <div class="cert-title">SSLC (Class X) — TN State Board</div>
+        <div class="cert-sub" style="color:var(--accent); margin-bottom: 0.8rem;">Kuyilappalayam Higher Secondary School, Kuyilappalayam, TN</div>
+        <div style="display:flex; justify-content:space-between; border-top: 1px solid var(--border); padding-top: 0.8rem; font-size: 0.85rem;">
+          <strong style="color:var(--accent-2);">74%</strong>
+          <span style="color:var(--text-sub);">2021 – 2022</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><br>
 
 <!-- CERTIFICATIONS -->
 <section id="certifications" class="container">
@@ -579,7 +752,7 @@
       </div>
     </div>
   </div>
-</section>
+</section><br>
 
 <!-- CONTACT -->
 <section id="contact" class="container">
@@ -587,10 +760,65 @@
     <div class="section-label" style="text-align:center;">Get In Touch</div>
     <h2>Let's Build<br>Something Together</h2>
     <p>Open to internships, freelance projects, and full-time roles. Drop me a message anytime!</p>
-    <a href="mailto:gajagopi2006@gmail.com" class="btn btn-primary" style="font-size:1rem; padding: 14px 32px;">
-      <i class="fas fa-paper-plane"></i> Say Hello
-    </a>
-    <div class="contact-icons">
+
+    <!-- Availability Badge -->
+    <div class="availability-badge contact-anim">
+      <span class="status-dot"></span>
+      Available for Opportunities
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="contact-buttons contact-anim">
+      <a href="mailto:gajagopi2006@gmail.com" class="btn btn-primary">
+        <i class="fas fa-paper-plane"></i> Say Hello
+      </a>
+      <a href="assets/Gopinath_Resume.pdf" download class="btn btn-secondary">
+        <i class="fas fa-download"></i> Download My-Resume
+      </a>
+    </div>
+
+
+    <!-- Contact Form -->
+    <form class="contact-form contact-anim" action="https://formsubmit.co/gajagopi2006@gmail.com" method="POST">
+      <!-- FormSubmit Configuration -->
+      <input type="hidden" name="_subject" value="New message from your Portfolio!">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_autoresponse" value="🎉 Thank you for reaching out!
+
+Hi there,
+
+Your message has been successfully delivered to my inbox.
+
+I appreciate you taking the time to connect with me.
+
+📌 What happens next?
+
+✔ I'll review your message
+✔ Usually reply within 24–48 hours
+✔ Looking forward to discussing opportunities, collaborations, and exciting projects
+
+Meanwhile, feel free to explore:
+
+🔗 LinkedIn
+https://linkedin.com/in/gopinath-g-12075732b
+
+Best Regards,
+Gopinath G
+Full Stack Developer">
+      
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="contactnumber" placeholder="Phone Number" required>
+      <textarea rows="5" name="message" placeholder="Write your message here..." required></textarea>
+      
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-paper-plane"></i> Send Message
+      </button>
+    </form>
+
+    <!-- Social Icons -->
+    <div class="contact-icons contact-anim">
       <a href="https://www.linkedin.com/in/gopinath-g-12075732b" target="_blank" class="contact-icon" title="LinkedIn">
         <i class="fab fa-linkedin-in"></i>
       </a>
@@ -605,23 +833,55 @@
       </a>
     </div>
   </div>
-</section>
+</section><br>
 
 <footer>
-  <p>&copy; 2025 <span>Gopinath G</span> — Built with 💚 and Code · Villupuram, Tamil Nadu</p>
+  <p>&copy; 2026 <span>Gopinath G</span> — Built with 💚 and Code · Villupuram, Tamil Nadu</p>
 </footer>
 
 <script>
   gsap.registerPlugin(ScrollTrigger);
 
+  // Typewriter Effect
+  const phrases = ["Full Stack Developer", "Flutter Engineer", "FastAPI Architect", "UI/UX Enthusiast", "Open Source Builder"];
+  let pi = 0, ci = 0, isDeleting = false;
+  const typedSpan = document.getElementById("typed-text");
+  function typeText() {
+    if (!typedSpan) return;
+    const currentPhrase = phrases[pi];
+    if (!isDeleting) {
+      typedSpan.innerText = currentPhrase.substring(0, ci + 1);
+      ci++;
+      if (ci === currentPhrase.length) {
+        isDeleting = true;
+        setTimeout(typeText, 1200);
+        return;
+      }
+    } else {
+      typedSpan.innerText = currentPhrase.substring(0, ci - 1);
+      ci--;
+      if (ci === 0) {
+        isDeleting = false;
+        pi = (pi + 1) % phrases.length;
+      }
+    }
+    setTimeout(typeText, isDeleting ? 50 : 90);
+  }
+  typeText();
+
   // Hero
   gsap.from(".hero-text", { opacity: 0, y: 60, duration: 1.1, ease: "power3.out" });
   gsap.from(".hero-img",  { opacity: 0, x: 50, duration: 1.1, delay: 0.25, ease: "power3.out" });
 
-  // Skills stagger
+  // Skills stagger & Bars
   gsap.to(".skill-card", {
     scrollTrigger: { trigger: ".skills-grid", start: "top 85%" },
-    opacity: 1, y: 0, duration: 0.6, stagger: 0.1
+    opacity: 1, y: 0, duration: 0.6, stagger: 0.1,
+    onComplete: () => {
+      document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+        bar.style.width = bar.getAttribute('data-width');
+      });
+    }
   });
 
   // Timeline
@@ -629,6 +889,14 @@
     gsap.from(item, {
       scrollTrigger: { trigger: item, start: "top 82%" },
       opacity: 0, x: -30, duration: 0.65
+    });
+  });
+
+  // Education cards
+  gsap.utils.toArray('.edu-card').forEach((card, i) => {
+    gsap.from(card, {
+      scrollTrigger: { trigger: card, start: "top 88%" },
+      opacity: 0, y: 30, duration: 0.5, delay: i * 0.07
     });
   });
 
@@ -641,7 +909,7 @@
   });
 
   // Cert cards
-  gsap.utils.toArray('.cert-card').forEach((card, i) => {
+  gsap.utils.toArray('#certifications .cert-card').forEach((card, i) => {
     gsap.from(card, {
       scrollTrigger: { trigger: card, start: "top 88%" },
       opacity: 0, y: 30, duration: 0.5, delay: i * 0.07
@@ -651,6 +919,14 @@
   // Mobile nav close
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+
+  // Contact section animations
+  gsap.utils.toArray('.contact-anim').forEach((el, i) => {
+    gsap.from(el, {
+      scrollTrigger: { trigger: el, start: "top 92%" },
+      opacity: 0, y: 20, duration: 0.5, delay: i * 0.08
+    });
   });
 </script>
 
